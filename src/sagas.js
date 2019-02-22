@@ -11,7 +11,7 @@ function* bootWatcher() {
 
 function* persistWatcher() {
   yield takeEvery(
-    ["reminders/ADD", "reminders/DELETE"],
+    ["reminders/ADD", "reminders/UPDATE", "reminders/DELETE"],
     function* persistWorker() {
       yield call(api.set, yield select(state => state.reminders));
     }
