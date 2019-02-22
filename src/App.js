@@ -45,15 +45,15 @@ const App = ({status, reminders, dispatch}) => {
     });
   }
 
-  function handleEditReminder(_reminder) {
-    setReminder(_reminder);
+  function handleEditReminder(baseReminder) {
+    setReminder(baseReminder);
   }
 
-  function handleReminderSave(_reminder) {
-    if (_reminder.id) {
-      dispatch({type: "reminders/UPDATE", payload: _reminder});
+  function handleReminderSave(newReminder) {
+    if (newReminder.id) {
+      dispatch({type: "reminders/UPDATE", payload: newReminder});
     } else {
-      dispatch({type: "reminders/ADD", payload: _reminder});
+      dispatch({type: "reminders/ADD", payload: newReminder});
     }
 
     setReminder(null);

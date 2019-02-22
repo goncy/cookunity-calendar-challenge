@@ -79,24 +79,19 @@ const Form = styled.form`
   }
 `;
 
-const ReminderForm = ({
-  initialValues: _initialValues,
-  onSave,
-  onDelete,
-  onClose,
-}) => {
-  const initialValues = {
+const ReminderForm = ({initialValues, onSave, onDelete, onClose}) => {
+  const baseReminder = {
     text: "",
     datetime: +new Date(),
     color: "#5a3de4",
-    ..._initialValues,
+    ...initialValues,
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onSave({
-      ...initialValues,
+      ...baseReminder,
       text: e.target.text.value,
       color: e.target.color.value,
       datetime: +new Date(e.target.datetime.value),
@@ -111,21 +106,21 @@ const ReminderForm = ({
           <input
             autoFocus
             required
-            defaultValue={initialValues.text}
+            defaultValue={baseReminder.text}
             name="text"
             placeholder="Recordatorio"
             type="text"
           />
           <input
             required
-            defaultValue={initialValues.color}
+            defaultValue={baseReminder.color}
             name="color"
             placeholder="Color"
             type="color"
           />
           <input
             required
-            defaultValue={new Date(initialValues.datetime)
+            defaultValue={new Date(baseReminder.datetime)
               .toJSON()
               .split(":")
               .slice(0, 2)
@@ -135,12 +130,12 @@ const ReminderForm = ({
             type="datetime-local"
           />
           <Button type="submit">Guardar</Button>
-          {initialValues.id && (
+          {baseReminder.id && (
             <Button
               type="button"
               onClick={e => {
                 e.preventDefault();
-                onDelete(initialValues.id);
+                onDelete(baseReminder.id);
               }}
             >
               Borrar
