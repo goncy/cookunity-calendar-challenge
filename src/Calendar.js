@@ -12,7 +12,7 @@ const Table = styled.table`
   padding: 12px;
 `;
 
-const Cell = styled.td`
+const Cell = styled.div`
   width: 128px;
   max-width: 128px;
   height: 128px;
@@ -23,7 +23,8 @@ const Cell = styled.td`
   cursor: pointer;
 
   &:before {
-    position: absolute;
+    position: sticky;
+    margin-bottom: 8px;
     top: 6px;
     left: 6px;
     content: '${({number}) => number}';
@@ -73,27 +74,25 @@ const Calendar = ({reminders, month, year, onReminderClick, onCellClick}) => {
             <tr key={day}>
               {R.map(
                 ({number, reminders = []}) => (
-                  <Cell
-                    key={number}
-                    number={number}
-                    onClick={() => onCellClick(number)}
-                  >
-                    {R.addIndex(R.map)(
-                      reminder => (
-                        <Reminder
-                          key={reminder.datetime}
-                          color={reminder.color}
-                          onClick={e => {
-                            e.stopPropagation();
-                            onReminderClick(reminder);
-                          }}
-                        >
-                          {reminder.text}
-                        </Reminder>
-                      ),
-                      reminders
-                    )}
-                  </Cell>
+                  <td key={number}>
+                    <Cell number={number} onClick={() => onCellClick(number)}>
+                      {R.addIndex(R.map)(
+                        reminder => (
+                          <Reminder
+                            key={reminder.id}
+                            color={reminder.color}
+                            onClick={e => {
+                              e.stopPropagation();
+                              onReminderClick(reminder);
+                            }}
+                          >
+                            {reminder.text}
+                          </Reminder>
+                        ),
+                        reminders
+                      )}
+                    </Cell>
+                  </td>
                 ),
                 row
               )}
