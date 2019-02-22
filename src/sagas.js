@@ -1,4 +1,5 @@
 import {put, takeEvery, call, select} from "redux-saga/effects";
+import * as R from "ramda";
 
 import api from "./resources";
 
@@ -13,7 +14,7 @@ function* persistWatcher() {
   yield takeEvery(
     ["reminders/ADD", "reminders/UPDATE", "reminders/DELETE"],
     function* persistWorker() {
-      yield call(api.set, yield select(state => state.reminders));
+      yield call(api.set, yield select(R.propOr([], "reminders")));
     }
   );
 }
