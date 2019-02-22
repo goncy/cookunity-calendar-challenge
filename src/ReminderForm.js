@@ -109,6 +109,7 @@ const ReminderForm = ({
         <Close onClick={onClose}>X</Close>
         <Form onSubmit={handleSubmit}>
           <input
+            autoFocus
             required
             defaultValue={initialValues.text}
             name="text"
