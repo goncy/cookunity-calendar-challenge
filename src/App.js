@@ -37,7 +37,7 @@ const App = ({status, reminders, dispatch}) => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [reminder, setReminder] = useState(null);
 
-  function handleNewReminder(day) {
+  function handleReminderCreate(day) {
     const time = new Date();
 
     setReminder({
@@ -45,7 +45,7 @@ const App = ({status, reminders, dispatch}) => {
     });
   }
 
-  function handleEditReminder(baseReminder) {
+  function handleReminderEdit(baseReminder) {
     setReminder(baseReminder);
   }
 
@@ -106,8 +106,8 @@ const App = ({status, reminders, dispatch}) => {
         month={month}
         reminders={reminders}
         year={year}
-        onCellClick={handleNewReminder}
-        onReminderClick={handleEditReminder}
+        onCellClick={handleReminderCreate}
+        onReminderClick={handleReminderEdit}
       />
       {reminder && (
         <ReminderForm
